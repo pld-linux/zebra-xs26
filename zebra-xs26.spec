@@ -124,13 +124,10 @@ aclocal
 %{__automake}
 autoheader
 %configure \
-	--enable-one-vty \
-	--enable-ipv6 \
 	--enable-netlink \
 	%{?_without_snmp:--disable-snmp} \
 	%{?!_without_snmp:--enable-snmp} \
-	--enable-vtysh \
-	--with-libpam
+	--enable-ipv6
 
 %{__make}
 
