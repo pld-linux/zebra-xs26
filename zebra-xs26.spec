@@ -1,5 +1,7 @@
 #
-# _without_snmp - without SNMP support (problematic with IPv6?)
+# Conditional build:
+%bcond_without	snmp	# without SNMP support (problematic with IPv6?)
+#
 Summary:	Routing daemon - xs26 port
 Summary(pl):	Demon routingu - port xs26
 Summary(pt_BR):	Servidor de roteamento multi-protocolo - xs26
@@ -7,9 +9,10 @@ Summary(ru):	äÅÍÏÎ ÍÁÒÛÒÕÔÉÚÁÃÉÉ Zebra - xs26
 Summary(uk):	äÅÍÏÎ ÍÁÒÛÒÕÔÉÚÁÃ¦§ Zebra - xs26
 Name:		zebra-xs26
 Version:	2.11
-Release:	1
+Release:	2
 License:	GPL
 Group:		Networking/Daemons
+#Source0Download: http://www.xs26.net/zebra/index.html
 Source0:	http://www.xs26.net/zebra/%{name}-%{version}.tar.gz
 # Source0-md5:	dadf7bea73d6535d6b046c29b71fb895
 Source10:	%{name}-zebra.init
@@ -21,19 +24,19 @@ Source22:	%{name}-ospf6d.sysconfig
 Source30:	%{name}-zebra.logrotate
 Source31:	%{name}-bgpd.logrotate
 Source32:	%{name}-ospf6d.logrotate
-Patch1:		%{name}-proc.patch
-#Patch3:		%{name}-autoconf.patch
-#Patch4:		%{name}-automake.patch
-#Patch5:		%{name}-autoheader.patch
-Patch6:		%{name}-smallfixes.patch
-URL:		http://www.zebra.org/
+Patch0:		%{name}-proc.patch
+Patch1:		%{name}-smallfixes.patch
+Patch2:		%{name}-remote_dos.patch
+Patch3:		%{name}-netlink.patch
+Patch4:		%{name}-info.patch
+URL:		http://www.xs26.net/zebra/index.html
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	readline-devel >= 4.1
 BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	pam-devel
+BuildRequires:	readline-devel >= 4.1
 BuildRequires:	texinfo
-%{?!_without_snmp:BuildRequires:	net-snmp-devel >= 5.0.8}
+%{?with_snmp:BuildRequires:	net-snmp-devel >= 5.0.8}
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/bin/hostname
@@ -109,24 +112,22 @@ OSPF6 routing daemon for IPv6 networks.
 Demon obs³ugi protoko³u OSPF w sieciach IPv6.
 
 %prep
-%setup  -q -n zebra-%{version}
-#%patch1 -p1
-#%patch3 -p1
-#%patch4 -p1
-#%patch5 -p1
-%patch6 -p1
+%setup -q -n zebra-%{version}
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
-rm -f ./missing
-rm -f doc/zebra.info
 %{__aclocal}
 %{__autoconf}
 %{__automake}
 %{__autoheader}
 %configure \
 	--enable-netlink \
-	%{?_without_snmp:--disable-snmp} \
-	%{?!_without_snmp:--enable-snmp} \
+	%{!?with_snmp:--disable-snmp} \
+	%{?with_snmp:--enable-snmp} \
 	--enable-ipv6 \
 	--enable-ospf6d \
 	--enable-bgpd
@@ -135,7 +136,6 @@ rm -f doc/zebra.info
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,logrotate.d,pam.d} \
 	$RPM_BUILD_ROOT/var/log/{archiv,}/zebra \
 	$RPM_BUILD_ROOT/var/run/zebra
