@@ -30,13 +30,13 @@ Patch2:		%{name}-remote_dos.patch
 Patch3:		%{name}-netlink.patch
 Patch4:		%{name}-info.patch
 URL:		http://www.xs26.net/zebra/index.html
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
 BuildRequires:	ncurses-devel >= 5.1
+%{?with_snmp:BuildRequires:	net-snmp-devel >= 5.0.8}
 BuildRequires:	pam-devel
 BuildRequires:	readline-devel >= 4.1
 BuildRequires:	texinfo
-%{?with_snmp:BuildRequires:	net-snmp-devel >= 5.0.8}
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/bin/hostname
