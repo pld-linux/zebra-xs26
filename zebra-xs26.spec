@@ -115,10 +115,10 @@ Demon obs³ugi protoko³u OSPF w sieciach IPv6.
 %build
 rm -f ./missing
 rm -f doc/zebra.info
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
-autoheader
+%{__autoheader}
 %configure \
 	--enable-netlink \
 	%{?_without_snmp:--disable-snmp} \
