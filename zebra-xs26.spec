@@ -11,7 +11,6 @@ Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://www.xs26.net/zebra/%{name}-%{version}.tar.gz
-Source1:	%{name}.pam
 Source10:	%{name}-zebra.init
 Source11:	%{name}-bgpd.init
 Source12:	%{name}-ospf6d.init
@@ -145,8 +144,6 @@ install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,logrotate.d,pam.d} \
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/pam.d/zebra
-
 install %{SOURCE10} $RPM_BUILD_ROOT/etc/rc.d/init.d/zebra
 install %{SOURCE11} $RPM_BUILD_ROOT/etc/rc.d/init.d/bgpd
 install %{SOURCE12} $RPM_BUILD_ROOT/etc/rc.d/init.d/ospf6d
@@ -230,7 +227,6 @@ fi
 %{_mandir}/man1/*
 %dir %attr(750,root,root) %{_sysconfdir}
 %config(noreplace) %verify(not md5 size mtime) %attr(640,root,root) %{_sysconfdir}/*.conf
-%config(noreplace) %verify(not md5 size mtime) /etc/pam.d/zebra
 %dir %attr(750,root,root) /var/run/zebra
 %dir %attr(750,root,root) /var/log/zebra
 %dir %attr(750,root,root) /var/log/archiv/zebra
