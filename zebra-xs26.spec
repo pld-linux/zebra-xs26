@@ -6,8 +6,8 @@ Summary(pt_BR):	Servidor de roteamento multi-protocolo - xs26
 Summary(ru):	Демон маршрутизации Zebra - xs26
 Summary(uk):	Демон маршрутизац╕╖ Zebra - xs26
 Name:		zebra-xs26
-Version:	2.08
-Release:	2
+Version:	2.08d
+Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://www.xs26.net/zebra/%{name}-%{version}.tar.gz
@@ -155,8 +155,6 @@ touch $RPM_BUILD_ROOT/var/log/zebra/{zebra,bgpd,ospf6d}.log
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{vtysh.conf,zebra.conf}
 
-gzip -9nf AUTHORS NEWS README REPORTING-BUGS SERVICES TODO
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -217,7 +215,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc AUTHORS NEWS README REPORTING-BUGS SERVICES TODO
 %{_infodir}/*info*
 %{_mandir}/man1/*
 %dir %attr(750,root,root) %{_sysconfdir}
