@@ -6,12 +6,12 @@ Summary(pt_BR):	Servidor de roteamento multi-protocolo - xs26
 Summary(ru):	äÅÍÏÎ ÍÁÒÛÒÕÔÉÚÁÃÉÉ Zebra - xs26
 Summary(uk):	äÅÍÏÎ ÍÁÒÛÒÕÔÉÚÁÃ¦§ Zebra - xs26
 Name:		zebra-xs26
-Version:	2.08d
+Version:	2.11
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://www.xs26.net/zebra/%{name}-%{version}.tar.gz
-# Source0-md5:	85c6cb0fa776026ed367e42d5ac7ad64
+# Source0-md5:	dadf7bea73d6535d6b046c29b71fb895
 Source10:	%{name}-zebra.init
 Source11:	%{name}-bgpd.init
 Source12:	%{name}-ospf6d.init
@@ -33,7 +33,7 @@ BuildRequires:	readline-devel >= 4.1
 BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	pam-devel
 BuildRequires:	texinfo
-%{?!_without_snmp:BuildRequires:	ucd-snmp-devel >= 4.2.6}
+%{?!_without_snmp:BuildRequires:	net-snmp-devel >= 5.0.8}
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/bin/hostname
@@ -109,8 +109,8 @@ OSPF6 routing daemon for IPv6 networks.
 Demon obs³ugi protoko³u OSPF w sieciach IPv6.
 
 %prep
-%setup  -q -n %{name}
-%patch1 -p1
+%setup  -q -n zebra-%{version}
+#%patch1 -p1
 #%patch3 -p1
 #%patch4 -p1
 #%patch5 -p1
