@@ -6,7 +6,7 @@ Summary(pt_BR):	Servidor de roteamento multi-protocolo - xs26
 Summary(ru):	Демон маршрутизации Zebra - xs26
 Summary(uk):	Демон маршрутизац╕╖ Zebra - xs26
 Name:		zebra-xs26
-Version:	2.06a
+Version:	2.08
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
