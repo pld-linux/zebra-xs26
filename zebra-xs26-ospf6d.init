@@ -1,0 +1,70 @@
+#!/bin/sh
+#
+# ospf6d		Starts the Dynamic Route Daemon 
+#
+# chkconfig:	345 16 84
+#
+# description:	Dynamic Route Daemon for IPv4 and IPv6 routers
+#
+# processname:	ospf6d
+# config:	/etc/zebra/ospf6d.conf
+
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/sysconfig/ospf6d ] && . /etc/sysconfig/ospf6d
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network ]; then
+		# nls "ERROR: Networking is down. %s can't be run." <service>
+		msg_network_down ospf6d
+		exit 1
+	fi
+else
+	exit 0
+fi
+									    
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the services are already running?
+	if [ ! -f /var/lock/subsys/ospf6d ]; then
+		FLAGS="--daemon"
+		msg_starting ospf6d
+		daemon ospf6d $FLAGS 
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ospf6d
+	else
+		msg_already_running "ospf6d"
+	fi
+	;;
+  stop)
+        # Stop daemons.
+	if [ -f /var/lock/subsys/ospf6d ]; then
+ 		msg_stopping "ospf6d"
+		killproc ospf6d
+		RETVAL=$?
+		rm -f /var/lock/subsys/ospf6d
+	else
+		msg_Not_Running ospf6d
+	fi
+	;;
+  status)
+	status ospf6d
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	;;
+  *)
+	msg_usage "$0 {start|stop|status|restart|reload}"
+	exit 1
+esac
+
+exit 0

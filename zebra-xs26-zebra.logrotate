@@ -1,0 +1,7 @@
+/var/log/zebra/zebra.log {
+	missingok
+	olddir /var/log/archiv/zebra
+	postrotate
+		/bin/killall -USR1 zebra >/dev/null 2>&1
+	endscript
+}

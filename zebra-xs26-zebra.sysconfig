@@ -1,0 +1,10 @@
+# Customized setings for zebra
+
+# Nice level for routing daemon [-10 - +10]
+SERVICE_RUN_NICE_LEVEL="+2"
+
+# Don't delete old routes which installed by zebra
+#KEEP_KERNEL_ROUTES=yes
+
+# When program terminates, retain added route by zebra.
+#RETAIN_ROUTES=yes

@@ -1,0 +1,5 @@
+# Customized setings for zebra ospf6d
+
+# Nice level for routing daemon [-10 - +10]
+SERVICE_RUN_NICE_LEVEL="+2"
+

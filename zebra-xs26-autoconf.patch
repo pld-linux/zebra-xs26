@@ -1,0 +1,24 @@
+diff -Naur zebra-0.92a/configure.in zebra-0.92a-p/configure.in
+--- zebra-0.92a/configure.in	Thu Nov 29 14:18:40 2001
++++ zebra-0.92a-p/configure.in	Thu Nov 29 14:19:24 2001
+@@ -420,7 +420,7 @@
+ dnl Linux IPv6
+ dnl ----------
+ if test "${enable_ipv6}" = "yes"; then
+-   AC_EGREP_CPP(yes, [dnl
++   AC_EGREP_CPP(yes, [
+    #include <linux/version.h>
+    /* 2.1.128 or later */
+    #if LINUX_VERSION_CODE >= 0x020180
+@@ -720,10 +720,7 @@
+ dnl set paths for process id files
+ dnl ------------------------------
+ AC_CACHE_CHECK(pid file directory,ac_piddir,
+-[for ZEBRA_PID_DIR in /var/run	dnl
+-                   /var/adm	dnl
+-                   /etc		dnl
+-                   /dev/null;
++[for ZEBRA_PID_DIR in /var/run /var/adm /etc /dev/null;
+ do
+   test -d $ZEBRA_PID_DIR && break
+ done

@@ -1,0 +1,72 @@
+#!/bin/sh
+#
+# bgpd		Starts the Dynamic Route Daemon 
+#
+# chkconfig:	345 16 84
+#
+# description:	Dynamic Route Daemon for IPv4 and IPv6 routers
+#
+# processname:	bgpd
+# config:	/etc/zebra/bgpd.conf
+
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/sysconfig/bgpd ] && . /etc/sysconfig/bgpd
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network ]; then
+		# nls "ERROR: Networking is down. %s can't be run." <service>
+		msg_network_down bgpd
+		exit 1
+	fi
+else
+	exit 0
+fi
+									    
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the services are already running?
+	if [ ! -f /var/lock/subsys/bgpd ]; then
+		FLAGS="--daemon"
+		is_yes "$RETAIN_ROUTES" && FLAGS="$FLAGS --retain"
+		is_yes "$NO_KERNEL" && FLAGS="$FLAGS --no_kernel"
+		msg_starting bgpd
+		daemon bgpd $FLAGS
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/bgpd
+	else
+		msg_already_running "bgpd"
+	fi
+	;;
+  stop)
+        # Stop daemons.
+	if [ -f /var/lock/subsys/bgpd ]; then
+ 		msg_stopping "bgpd"
+		killproc bgpd
+		RETVAL=$?
+		rm -f /var/lock/subsys/bgpd
+	else
+		msg_not_running bgpd
+	fi
+	;;
+  status)
+	status bgpd
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	;;
+  *)
+	msg_usage "$0 {start|stop|status|restart|reload}"
+	exit 1
+esac
+
+exit 0

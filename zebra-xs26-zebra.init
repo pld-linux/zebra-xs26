@@ -1,0 +1,74 @@
+#!/bin/sh
+#
+# zebra		Starts the Dynamic Route Daemon 
+#
+# chkconfig:	345 15 85
+#
+# description:	Dynamic Route Daemon for IPv4 and IPv6 routers
+#
+# processname:	zebra
+# config:	/etc/zebra/zebra.conf
+
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/sysconfig/zebra ] && . /etc/sysconfig/zebra
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network ]; then
+		# nls "ERROR: Networking is down. %s can't be run." <service>
+		msg_network_down zebra
+		exit 1
+	fi
+else
+	exit 0
+fi
+									    
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the services are already running?
+	if [ ! -f /var/lock/subsys/zebra ]; then
+		msg_starting zebra
+		daemon zebra -d 
+		RETVAL=$?
+		if [ $RETVAL -eq 0 ] ; then
+			touch /var/lock/subsys/zebra
+			if [ -f /etc/zebra/Zebra.conf ] ; then
+				run_cmd "Loading zebra configuration" vtysh -b
+			fi
+		fi
+	else
+		msg_already_running "zebra"
+	fi
+	;;
+  stop)
+        # Stop daemons.
+	if [ -f /var/lock/subsys/zebra ]; then
+ 		msg_stopping "zebra"
+		killproc zebra
+		RETVAL=$?
+		rm -f /var/lock/subsys/zebra
+	else
+		msg_not_running zebra
+	fi
+	;;
+  status)
+	status zebra
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	;;
+  *)
+	msg_Usage "$0 {start|stop|status|restart|reload}"
+	exit 1
+esac
+
+exit 0

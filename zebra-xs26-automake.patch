@@ -1,0 +1,12 @@
+diff -Naur zebra-0.92a/zebra/Makefile.am zebra-0.92a-p/zebra/Makefile.am
+--- zebra-0.92a/zebra/Makefile.am	Thu Feb  1 08:07:51 2001
++++ zebra-0.92a-p/zebra/Makefile.am	Thu Nov 29 14:17:08 2001
+@@ -42,7 +42,7 @@
+ 	rtread_getmsg.c kernel_socket.c kernel_netlink.c mtu_kvm.c \
+ 	GNOME-SMI GNOME-PRODUCT-ZEBRA-MIB irdp.c
+ 
+-zebra : $(zebra_OBJECTS) $(otherobj) ../lib/libzebra.a
++zebra$(EXEEXT) : $(zebra_OBJECTS) $(otherobj) ../lib/libzebra.a
+ 	$(CC) -g -o zebra $(zebra_OBJECTS) $(otherobj) ../lib/libzebra.a $(LIBS) $(LIB_IPV6)
+ 
+ client : client_main.o ../lib/libzebra.a

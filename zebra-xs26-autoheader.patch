@@ -1,0 +1,26 @@
+diff -Naur zebra-0.92a/acconfig.h zebra-0.92a-p/acconfig.h
+--- zebra-0.92a/acconfig.h	Wed Mar  7 09:35:31 2001
++++ zebra-0.92a-p/acconfig.h	Thu Nov 29 14:22:28 2001
+@@ -1,6 +1,8 @@
+ /* accconfig.h -- `autoheader' will generate config.h.in for zebra.
+    Copyright (C) 1998, 1999 Kunihiro Ishiguro <kunihiro@zebra.org> */
+ 
++#undef WORDS_BIGENDIAN
++
+ /* Version of GNU Zebra */
+ #undef VERSION
+ 
+diff -Naur zebra-0.92a/acconfig.h zebra-0.92a-p/acconfig.h
+--- zebra-0.92a/acconfig.h	Thu Nov 29 14:29:30 2001
++++ zebra-0.92a-p/acconfig.h	Thu Nov 29 14:31:07 2001
+@@ -131,6 +131,10 @@
+ /* Define if OpenBSD */
+ #undef OPEN_BSD
+ 
++#undef HAVE_BCOPY
++
++#undef HAVE_BZERO
++
+ #ifndef HAVE_BCOPY
+ # define bcopy(s,d,n) memcpy((d),(s),(n))
+ #endif /* HAVE_BCOPY */
