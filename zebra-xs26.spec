@@ -26,15 +26,16 @@ Patch1:		%{name}-proc.patch
 #Patch5:		%{name}-autoheader.patch
 Patch6:		%{name}-smallfixes.patch
 URL:		http://www.zebra.org/
-BuildRequires:	texinfo
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	readline-devel >= 4.1
 BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	pam-devel
+BuildRequires:	texinfo
 %{?!_without_snmp:BuildRequires:	ucd-snmp-devel >= 4.2.6}
-Prereq:		rc-scripts
-Prereq:		/sbin/chkconfig
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
+Requires(post):	/bin/hostname
 Provides:	routingdaemon
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	bird
@@ -82,6 +83,7 @@ RIPng.
 Summary:	BGP routing daemon
 Summary(pl):	Demon routingu BGP
 Group:		Networking/Daemons
+Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	zebra-bgpd
 
@@ -95,6 +97,7 @@ Demon obs³ugi protoko³u BGP. Obs³uguje tak¿e IPv6.
 Summary:	IPv6 OSPF routing daemon
 Summary(pl):	Demon routingu OSPF w sieciach IPv6
 Group:		Networking/Daemons
+Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	zebra-ospf6d
 
@@ -161,6 +164,7 @@ rm -rf $RPM_BUILD_ROOT
 %post
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 /sbin/chkconfig --add zebra >&2
+umask 027
 if [ ! -s %{_sysconfdir}/zebra.conf ]; then
         echo "hostname `hostname`" > %{_sysconfdir}/zebra.conf
 fi
