@@ -29,7 +29,8 @@ if is_yes "${NETWORKING}"; then
 else
 	exit 0
 fi
-									    
+
+
 # See how we were called.
 case "$1" in
   start)
@@ -44,17 +45,19 @@ case "$1" in
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/bgpd
 	else
 		msg_already_running "bgpd"
+		exit 1
 	fi
 	;;
   stop)
-        # Stop daemons.
 	if [ -f /var/lock/subsys/bgpd ]; then
+		# Stop daemons.
  		msg_stopping "bgpd"
 		killproc bgpd
 		RETVAL=$?
 		rm -f /var/lock/subsys/bgpd
 	else
 		msg_not_running bgpd
+		exit 1
 	fi
 	;;
   status)
@@ -63,10 +66,15 @@ case "$1" in
   restart|reload)
 	$0 stop
 	$0 start
+	exit $?
+	;;
+  force-reload)
+	$0 stop && $0 start
+	exit $?
 	;;
   *)
-	msg_usage "$0 {start|stop|status|restart|reload}"
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
 	exit 1
 esac
 
-exit 0
+exit $RETVAL
