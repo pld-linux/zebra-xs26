@@ -1,7 +1,6 @@
-diff -Naur zebra-0.92a/configure.in zebra-0.92a-p/configure.in
---- zebra-0.92a/configure.in	Sun Aug 19 11:24:14 2001
-+++ zebra-0.92a-p/configure.in	Thu Nov 29 13:37:53 2001
-@@ -321,24 +321,7 @@
+--- zebra-2.11/configure.ac.orig	Mon Mar  3 16:13:56 2003
++++ zebra-2.11/configure.ac	Mon Dec  1 13:09:25 2003
+@@ -233,24 +233,8 @@
  dnl ------------------------------
  dnl check kernel route read method
  dnl ------------------------------
@@ -24,26 +23,26 @@ diff -Naur zebra-0.92a/configure.in zebra-0.92a-p/configure.in
 -esac
 -fi])
 +RTREAD_METHOD="rtread_netlink.o"
++zebra_rtread="proc"
  AC_SUBST(RTREAD_METHOD)
  
  dnl -----------------------------
-@@ -369,38 +352,16 @@
+@@ -281,38 +265,16 @@
  dnl -----------------------
  dnl check proc file system.
  dnl -----------------------
 -if test -r /proc/net/dev; then
--  AC_DEFINE(HAVE_PROC_NET_DEV)
+-  AC_DEFINE(HAVE_PROC_NET_DEV,,/proc/net/dev)
 -  IF_PROC=if_proc.o
 -fi
 -
 -if test -r /proc/net/if_inet6; then
--  AC_DEFINE(HAVE_PROC_NET_IF_INET6)
+-  AC_DEFINE(HAVE_PROC_NET_IF_INET6,,/proc/net/if_inet6)
 -  IF_PROC=if_proc.o
 -fi
-+AC_DEFINE(HAVE_PROC_NET_DEV)
++AC_DEFINE(HAVE_PROC_NET_DEV,,/proc/net/dev)
 +IF_PROC=if_proc.o
-+AC_DEFINE(HAVE_PROC_NET_IF_INET6)
-+IF_PROC=if_proc.o
++AC_DEFINE(HAVE_PROC_NET_IF_INET6,,/proc/net/if_inet6)
  AC_SUBST(IF_PROC)
  
  dnl -----------------------------
@@ -68,6 +67,7 @@ diff -Naur zebra-0.92a/configure.in zebra-0.92a-p/configure.in
 -                     zebra_ipforward_path="sysctl";;
 -esac])
 +IPFORWARD=ipforward_proc.o
++zebra_ipforward_path="proc"
  AC_SUBST(IPFORWARD)
  
  AC_CHECK_FUNCS(getaddrinfo, [have_getaddrinfo=yes], [have_getaddrinfo=no])
