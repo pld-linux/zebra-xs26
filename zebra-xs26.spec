@@ -124,7 +124,9 @@ autoheader
 	--enable-netlink \
 	%{?_without_snmp:--disable-snmp} \
 	%{?!_without_snmp:--enable-snmp} \
-	--enable-ipv6
+	--enable-ipv6 \
+	--enable-ospf6d \
+	--enable-bgpd
 
 %{__make}
 
