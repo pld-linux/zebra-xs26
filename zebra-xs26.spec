@@ -21,12 +21,9 @@ Source30:	%{name}-zebra.logrotate
 Source31:	%{name}-bgpd.logrotate
 Source32:	%{name}-ospf6d.logrotate
 Patch1:		%{name}-proc.patch
-Patch2:		%{name}-socket_paths.patch
 Patch3:		%{name}-autoconf.patch
 Patch4:		%{name}-automake.patch
 Patch5:		%{name}-autoheader.patch
-Patch6:		%{name}-bgpd-timer.patch
-Patch7:		%{name}-bgpd-nexthop.patch
 URL:		http://www.zebra.org/
 BuildRequires:	texinfo
 BuildRequires:	autoconf
