@@ -8,13 +8,13 @@ Summary(pt_BR):	Servidor de roteamento multi-protocolo - xs26
 Summary(ru):	Демон маршрутизации Zebra - xs26
 Summary(uk):	Демон маршрутизац╕╖ Zebra - xs26
 Name:		zebra-xs26
-Version:	2.11
-Release:	2
+Version:	3.3
+Release:	1
 License:	GPL
 Group:		Networking/Daemons
 #Source0Download: http://www.xs26.net/zebra/index.html
 Source0:	http://www.xs26.net/zebra/%{name}-%{version}.tar.gz
-# Source0-md5:	dadf7bea73d6535d6b046c29b71fb895
+# Source0-md5:	91503d70a33e9c85c6ba4da48ae9c2a1
 Source10:	%{name}-zebra.init
 Source11:	%{name}-bgpd.init
 Source12:	%{name}-ospf6d.init
@@ -112,7 +112,7 @@ OSPF6 routing daemon for IPv6 networks.
 Demon obsЁugi protokoЁu OSPF w sieciach IPv6.
 
 %prep
-%setup -q -n zebra-%{version}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
