@@ -1,0 +1,135 @@
+diff -Nru zebra-xs26/AUTHORS zebra/AUTHORS
+--- zebra-xs26/AUTHORS	Thu Feb 14 00:35:24 2002
++++ zebra/AUTHORS	Sun Jun 30 16:58:29 2002
+@@ -5,3 +5,6 @@
+ Alex D. Zinin <azinin@hotmail.com>
+ Gleb Natapov <gleb@nbase.co.il>
+ Akihiro Mizutani <mizutani@dml.com>
++
++changes in bgp_show_summary():
++Krzysztof J. <ravi@netlab.eu.org>
+diff -Nru zebra-xs26/NEWS zebra/NEWS
+--- zebra-xs26/NEWS	Wed Jun 26 10:43:35 2002
++++ zebra/NEWS	Sun Jun 30 16:57:31 2002
+@@ -62,3 +62,5 @@
+ ** Fix pointopoint interface bug
+ 
+ ** Fix 'ip[v6] route <route> <interface>' bug on OpenBSD'
++
++* Changes in bgp_show_summary()
+diff -Nru zebra-xs26/bgpd/bgp_vty.c zebra/bgpd/bgp_vty.c
+--- zebra-xs26/bgpd/bgp_vty.c	Mon Jun 24 14:14:02 2002
++++ zebra/bgpd/bgp_vty.c	Sun Jun 30 18:18:10 2002
+@@ -1,6 +1,7 @@
+ /* BGP VTY interface.
+    Copyright (C) 1996, 97, 98, 99, 2000 Kunihiro Ishiguro
+-
++   Small changes in bgp_show_summary() by Krzysztof J. <ravi@netlab.eu.org>
++   
+ This file is part of GNU Zebra.
+ 
+ GNU Zebra is free software; you can redistribute it and/or modify it
+@@ -5825,7 +5826,10 @@
+   struct listnode *nn;
+   int count = 0;
+   char timebuf[BGP_UPTIME_LEN];
++  char rid[32];
++  char descr[32];
+   int len;
++  int ct;
+ 
+   /* Header string for each address family. */
+   static char header[] = "Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd";
+@@ -5849,24 +5853,22 @@
+ 	      if (CHECK_FLAG(bgp->af_flags[afi][safi], BGP_CONFIG_DAMPENING))
+ 		vty_out (vty, "Dampening enabled.%s", VTY_NEWLINE);
+ 	      vty_out (vty, "%s", VTY_NEWLINE);
+-	      vty_out (vty, "%s%s", header, VTY_NEWLINE);
++	      vty_out (vty, "%s%s%s", header, VTY_NEWLINE, VTY_NEWLINE);
++
++	      for(ct=0;ct<strlen(header);ct++)
++	      vty_out (vty, "%c", '-');
++	      vty_out (vty, "%s", VTY_NEWLINE);
++
+ 	    }
+ 	  count++;
+ 
+-	  len = vty_out (vty, "%s", peer->host);
+-	  len = 16 - len;
+-	  if (len < 1)
+-	    vty_out (vty, "%s%*s", VTY_NEWLINE, 16, " ");
+-	  else
+-	    vty_out (vty, "%*s", len, " ");
+-
+ 	  switch (peer->version) 
+ 	    {
+ 	    case BGP_VERSION_4:
+-	      vty_out (vty, "4 ");
++	      vty_out (vty, "                4 ");
+ 	      break;
+ 	    case BGP_VERSION_MP_4_DRAFT_00:
+-	      vty_out (vty, "4-");
++	      vty_out (vty, "                4-");
+ 	      break;
+ 	    }
+ 
+@@ -5896,6 +5898,59 @@
+ 	    }
+ 
+ 	  vty_out (vty, "%s", VTY_NEWLINE);
++	  vty_out (vty, "%s",peer->host);
++
++	  len = 40 - strlen(peer->host);
++	  if(len>0)
++	  {
++	    for(ct=0;ct<len;ct++)
++	    vty_out (vty, " ");
++	  }
++	  
++	  memset(descr,0x0,sizeof(descr));
++	  
++	  if(peer->desc)
++	  {
++	    for(ct=0;peer->desc!=0 && ct < 10;ct++)
++	    descr[ct]=peer->desc[ct];
++	  }
++	  else
++	  snprintf(descr,15,"-No INFO-");
++	  
++	  vty_out(vty,"[ D: %s",descr);	  
++
++	  len = 11 - strlen(descr);
++	  if(len>0)
++	  {
++	    for(ct=0;ct<len;ct++)
++	    vty_out (vty, " ");
++	  }
++
++	  memset(rid,0x0,sizeof(rid));
++	  
++	  snprintf(rid,20,"%s",inet_ntoa(peer->remote_id));
++	  if(strcmp(rid,"0.0.0.0"))
++	  {
++	    for(ct=0;rid!=0 && ct < 15;ct++)
++	    descr[ct]=rid[ct];
++	  }
++	  else
++	  snprintf(rid,15,"-No INFO-");
++
++	  vty_out(vty,"-> ID: %s",rid);
++	  
++	  len = 16 - strlen(rid);
++	  if(len>0)
++	  {
++	    for(ct=0;ct<len;ct++)
++	    vty_out (vty, " ");
++	  }
++	  
++	  vty_out(vty,"]%s", VTY_NEWLINE);
++
++	  for(ct=0;ct<strlen(header);ct++)
++	  vty_out (vty, "%c", '-');
++	  vty_out (vty, "%s", VTY_NEWLINE);
+ 	}
+     }
+ 
