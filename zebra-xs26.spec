@@ -6,7 +6,7 @@ Summary(pt_BR):	Servidor de roteamento multi-protocolo - xs26
 Summary(ru):	‰≈ÕœŒ Õ¡“€“’‘…⁄¡√…… Zebra - xs26
 Summary(uk):	‰≈ÕœŒ Õ¡“€“’‘…⁄¡√¶ß Zebra - xs26
 Name:		zebra-xs26
-Version:	2.05b
+Version:	2.06a
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
@@ -21,9 +21,10 @@ Source30:	%{name}-zebra.logrotate
 Source31:	%{name}-bgpd.logrotate
 Source32:	%{name}-ospf6d.logrotate
 Patch1:		%{name}-proc.patch
-Patch3:		%{name}-autoconf.patch
-Patch4:		%{name}-automake.patch
-Patch5:		%{name}-autoheader.patch
+#Patch3:		%{name}-autoconf.patch
+#Patch4:		%{name}-automake.patch
+#Patch5:		%{name}-autoheader.patch
+Patch6:		%{name}-smallfixes.patch
 URL:		http://www.zebra.org/
 BuildRequires:	texinfo
 BuildRequires:	autoconf
@@ -106,12 +107,10 @@ Demon obs≥ugi protoko≥u OSPF w sieciach IPv6.
 %prep
 %setup  -q -n %{name}
 %patch1 -p1
-#%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-#%patch6 -p1
-#%patch7 -p1
+#%patch3 -p1
+#%patch4 -p1
+#%patch5 -p1
+%patch6 -p1
 
 %build
 rm -f ./missing
