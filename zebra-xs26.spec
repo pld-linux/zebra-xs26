@@ -11,6 +11,7 @@ Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://www.xs26.net/zebra/%{name}-%{version}.tar.gz
+# Source0-md5:	85c6cb0fa776026ed367e42d5ac7ad64
 Source10:	%{name}-zebra.init
 Source11:	%{name}-bgpd.init
 Source12:	%{name}-ospf6d.init
