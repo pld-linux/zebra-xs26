@@ -30,7 +30,7 @@ else
 	exit 0
 fi
 
-
+RETVAL=0
 # See how we were called.
 case "$1" in
   start)
@@ -45,7 +45,6 @@ case "$1" in
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/bgpd
 	else
 		msg_already_running "bgpd"
-		exit 1
 	fi
 	;;
   stop)
@@ -53,28 +52,23 @@ case "$1" in
 		# Stop daemons.
  		msg_stopping "bgpd"
 		killproc bgpd
-		RETVAL=$?
 		rm -f /var/lock/subsys/bgpd
 	else
 		msg_not_running bgpd
-		exit 1
 	fi
 	;;
   status)
 	status bgpd
+	exit $?
 	;;
-  restart|reload)
+  restart|force-reload)
 	$0 stop
 	$0 start
 	exit $?
 	;;
-  force-reload)
-	$0 stop && $0 start
-	exit $?
-	;;
   *)
-	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
-	exit 1
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 esac
 
 exit $RETVAL

@@ -30,7 +30,7 @@ else
 	exit 0
 fi
 
-
+RETVAL=0
 # See how we were called.
 case "$1" in
   start)
@@ -43,7 +43,6 @@ case "$1" in
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ospf6d
 	else
 		msg_already_running "ospf6d"
-		exit 1
 	fi
 	;;
   stop)
@@ -51,28 +50,23 @@ case "$1" in
 		# Stop daemons.
  		msg_stopping "ospf6d"
 		killproc ospf6d
-		RETVAL=$?
 		rm -f /var/lock/subsys/ospf6d
 	else
 		msg_not_running ospf6d
-		exit 1
 	fi
 	;;
   status)
 	status ospf6d
+	exit $?
 	;;
-  restart|reload)
+  restart|force-reload)
 	$0 stop
 	$0 start
 	exit $?
 	;;
-  force-reload)
-	$0 stop && $0 start
-	exit $?
-	;;
   *)
-	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
-	exit 1
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 esac
 
 exit $RETVAL
