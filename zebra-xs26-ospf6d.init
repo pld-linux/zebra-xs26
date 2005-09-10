@@ -2,7 +2,7 @@
 #
 # ospf6d		Starts the Dynamic Route Daemon 
 #
-# chkconfig:	345 16 84
+# chkconfig:	345 15 84
 #
 # description:	Dynamic Route Daemon for IPv4 and IPv6 routers
 #
