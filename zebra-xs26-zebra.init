@@ -2,7 +2,7 @@
 #
 # zebra		Starts the Dynamic Route Daemon 
 #
-# chkconfig:	345 15 85
+# chkconfig:	345 13 85
 #
 # description:	Dynamic Route Daemon for IPv4 and IPv6 routers
 #
