@@ -37,9 +37,9 @@ BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	pam-devel
 BuildRequires:	readline-devel >= 4.1
 BuildRequires:	texinfo
-PreReq:		rc-scripts
-Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/bin/hostname
+Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts
 Provides:	routingdaemon
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	bird
@@ -224,7 +224,7 @@ fi
 %{_infodir}/*info*
 %{_mandir}/man1/*
 %dir %attr(750,root,root) %{_sysconfdir}
-%config(noreplace) %verify(not md5 size mtime) %attr(640,root,root) %{_sysconfdir}/*.conf
+%config(noreplace) %verify(not md5 mtime size) %attr(640,root,root) %{_sysconfdir}/*.conf
 %dir %attr(750,root,root) /var/run/zebra
 %dir %attr(750,root,root) /var/log/zebra
 %dir %attr(750,root,root) /var/log/archiv/zebra
@@ -233,8 +233,8 @@ fi
 %{_mandir}/man8/zebra*
 %attr(755,root,root) %{_sbindir}/zebra
 %attr(754,root,root) /etc/rc.d/init.d/zebra
-%config(noreplace) %verify(not md5 size mtime) %attr(640,root,root) /etc/sysconfig/zebra
-%config(noreplace) %verify(not md5 size mtime) %attr(640,root,root) /etc/logrotate.d/zebra
+%config(noreplace) %verify(not md5 mtime size) %attr(640,root,root) /etc/sysconfig/zebra
+%config(noreplace) %verify(not md5 mtime size) %attr(640,root,root) /etc/logrotate.d/zebra
 %ghost /var/log/zebra/zebra*
 
 %files bgpd
@@ -243,8 +243,8 @@ fi
 %{_mandir}/man8/bgpd*
 %attr(755,root,root) %{_sbindir}/bgpd
 %attr(754,root,root) /etc/rc.d/init.d/bgpd
-%config(noreplace) %verify(not md5 size mtime) %attr(640,root,root) /etc/sysconfig/bgpd
-%config(noreplace) %verify(not md5 size mtime) %attr(640,root,root) /etc/logrotate.d/bgpd
+%config(noreplace) %verify(not md5 mtime size) %attr(640,root,root) /etc/sysconfig/bgpd
+%config(noreplace) %verify(not md5 mtime size) %attr(640,root,root) /etc/logrotate.d/bgpd
 %ghost /var/log/zebra/bgpd*
 
 %files ospf6d
@@ -253,6 +253,6 @@ fi
 %{_mandir}/man8/ospf6d*
 %attr(755,root,root) %{_sbindir}/ospf6d
 %attr(754,root,root) /etc/rc.d/init.d/ospf6d
-%config(noreplace) %verify(not md5 size mtime) %attr(640,root,root) /etc/sysconfig/ospf6d
-%config(noreplace) %verify(not md5 size mtime) %attr(640,root,root) /etc/logrotate.d/ospf6d
+%config(noreplace) %verify(not md5 mtime size) %attr(640,root,root) /etc/sysconfig/ospf6d
+%config(noreplace) %verify(not md5 mtime size) %attr(640,root,root) /etc/logrotate.d/ospf6d
 %ghost /var/log/zebra/ospf6d*
