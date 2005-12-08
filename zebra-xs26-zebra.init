@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# zebra		Starts the Dynamic Route Daemon 
+# zebra		Starts the Dynamic Route Daemon
 #
 # chkconfig:	345 13 85
 #
@@ -36,7 +36,7 @@ case "$1" in
 	# Check if the services are already running?
 	if [ ! -f /var/lock/subsys/zebra ]; then
 		msg_starting zebra
-		daemon zebra -d 
+		daemon zebra -d
 		RETVAL=$?
 		if [ $RETVAL -eq 0 ]; then
 			touch /var/lock/subsys/zebra

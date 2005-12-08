@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# bgpd		Starts the Dynamic Route Daemon 
+# bgpd		Starts the Dynamic Route Daemon
 #
 # chkconfig:	345 15 84
 #

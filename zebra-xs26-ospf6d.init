@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# ospf6d		Starts the Dynamic Route Daemon 
+# ospf6d		Starts the Dynamic Route Daemon
 #
 # chkconfig:	345 15 84
 #
@@ -37,7 +37,7 @@ case "$1" in
 	if [ ! -f /var/lock/subsys/ospf6d ]; then
 		FLAGS="--daemon"
 		msg_starting ospf6d
-		daemon ospf6d $FLAGS 
+		daemon ospf6d $FLAGS
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ospf6d
 	else
