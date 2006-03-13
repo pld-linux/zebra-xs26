@@ -36,16 +36,17 @@ BuildRequires:	ncurses-devel >= 5.1
 %{?with_snmp:BuildRequires:	net-snmp-devel >= 5.0.8}
 BuildRequires:	pam-devel
 BuildRequires:	readline-devel >= 4.1
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	texinfo
 Requires(post):	/bin/hostname
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
 Provides:	routingdaemon
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	bird
 Obsoletes:	gated
 Obsoletes:	mrt
 Obsoletes:	zebra
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir /etc/zebra
 
@@ -169,49 +170,31 @@ umask 027
 if [ ! -s %{_sysconfdir}/zebra.conf ]; then
 	echo "hostname `hostname`" > %{_sysconfdir}/zebra.conf
 fi
-if [ -f /var/lock/subsys/zebra ]; then
-	/etc/rc.d/init.d/zebra restart >&2
-else
-	echo "Run '/etc/rc.d/init.d/zebra start' to start main routing deamon." >&2
-fi
+%service zebra restart "main routing deamon"
 
 %post bgpd
 /sbin/chkconfig --add bgpd >&2
-if [ -f /var/lock/subsys/bgpd ]; then
-	/etc/rc.d/init.d/bgpd restart >&2
-else
-	echo "Run '/etc/rc.d/init.d/bgpd start' to start bgpd routing deamon." >&2
-fi
+%service bgpd restart "bgpd routing deamon"
 
 %post ospf6d
 /sbin/chkconfig --add ospf6d >&2
-if [ -f /var/lock/subsys/ospf6d ]; then
-	/etc/rc.d/init.d/ospf6d restart >&2
-else
-	echo "Run '/etc/rc.d/init.d/ospf6d start' to start ospf6d routing deamon." >&2
-fi
+%service ospf6d restart "ospf6d routing deamon"
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/zebra ]; then
-		/etc/rc.d/init.d/zebra stop >&2
-	fi
+	%service zebra stop
 	/sbin/chkconfig --del zebra >&2
 fi
 
 %preun bgpd
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/bgpd ]; then
-		/etc/rc.d/init.d/bgpd stop >&2
-	fi
+	%service bgpd stop
 	/sbin/chkconfig --del bgpd >&2
 fi
 
 %preun ospf6d
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/ospf6d ]; then
-		/etc/rc.d/init.d/ospf6d stop >&2
-	fi
+	%service ospf6d stop
 	/sbin/chkconfig --del ospf6d >&2
 fi
 
