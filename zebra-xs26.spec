@@ -170,15 +170,15 @@ umask 027
 if [ ! -s %{_sysconfdir}/zebra.conf ]; then
 	echo "hostname `hostname`" > %{_sysconfdir}/zebra.conf
 fi
-%service zebra restart "main routing deamon"
+%service zebra restart "main routing daemon"
 
 %post bgpd
 /sbin/chkconfig --add bgpd >&2
-%service bgpd restart "bgpd routing deamon"
+%service bgpd restart "bgpd routing daemon"
 
 %post ospf6d
 /sbin/chkconfig --add ospf6d >&2
-%service ospf6d restart "ospf6d routing deamon"
+%service ospf6d restart "ospf6d routing daemon"
 
 %preun
 if [ "$1" = "0" ]; then
