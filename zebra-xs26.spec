@@ -9,7 +9,7 @@ Summary(ru):	Демон маршрутизации Zebra - xs26
 Summary(uk):	Демон маршрутизац╕╖ Zebra - xs26
 Name:		zebra-xs26
 Version:	2.11
-Release:	3
+Release:	4
 License:	GPL
 Group:		Networking/Daemons
 #Source0Download: http://www.xs26.net/zebra/index.html
