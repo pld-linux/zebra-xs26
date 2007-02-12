@@ -3,10 +3,10 @@
 %bcond_without	snmp	# without SNMP support (problematic with IPv6?)
 #
 Summary:	Routing daemon - xs26 port
-Summary(pl.UTF-8):   Demon routingu - port xs26
-Summary(pt_BR.UTF-8):   Servidor de roteamento multi-protocolo - xs26
-Summary(ru.UTF-8):   Демон маршрутизации Zebra - xs26
-Summary(uk.UTF-8):   Демон маршрутизації Zebra - xs26
+Summary(pl.UTF-8):	Demon routingu - port xs26
+Summary(pt_BR.UTF-8):	Servidor de roteamento multi-protocolo - xs26
+Summary(ru.UTF-8):	Демон маршрутизации Zebra - xs26
+Summary(uk.UTF-8):	Демон маршрутизації Zebra - xs26
 Name:		zebra-xs26
 Version:	2.11
 Release:	4
@@ -86,7 +86,7 @@ RIPng.
 
 %package bgpd
 Summary:	BGP routing daemon
-Summary(pl.UTF-8):   Demon routingu BGP
+Summary(pl.UTF-8):	Demon routingu BGP
 Group:		Networking/Daemons
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
@@ -100,7 +100,7 @@ Demon obsługi protokołu BGP. Obsługuje także IPv6.
 
 %package ospf6d
 Summary:	IPv6 OSPF routing daemon
-Summary(pl.UTF-8):   Demon routingu OSPF w sieciach IPv6
+Summary(pl.UTF-8):	Demon routingu OSPF w sieciach IPv6
 Group:		Networking/Daemons
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
