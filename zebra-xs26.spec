@@ -3,10 +3,10 @@
 %bcond_without	snmp	# without SNMP support (problematic with IPv6?)
 #
 Summary:	Routing daemon - xs26 port
-Summary(pl):	Demon routingu - port xs26
-Summary(pt_BR):	Servidor de roteamento multi-protocolo - xs26
-Summary(ru):	Демон маршрутизации Zebra - xs26
-Summary(uk):	Демон маршрутизац╕╖ Zebra - xs26
+Summary(pl.UTF-8):   Demon routingu - port xs26
+Summary(pt_BR.UTF-8):   Servidor de roteamento multi-protocolo - xs26
+Summary(ru.UTF-8):   п■п╣п╪п╬п╫ п╪п╟я─я┬я─я┐я┌п╦п╥п╟я├п╦п╦ Zebra - xs26
+Summary(uk.UTF-8):   п■п╣п╪п╬п╫ п╪п╟я─я┬я─я┐я┌п╦п╥п╟я├я√я≈ Zebra - xs26
 Name:		zebra-xs26
 Version:	2.11
 Release:	4
@@ -57,36 +57,36 @@ and so on. Zebra turns your machine into a full powered router.
 
 Daemons for each routing protocols are available in separate packages.
 
-%description -l pl
-Program do dynamicznego ustawiania tablicy tras. Mo©e tak©e ustalaФ
+%description -l pl.UTF-8
+Program do dynamicznego ustawiania tablicy tras. Moе╪e takе╪e ustalaд┤
 trasy dla IPv6.
 
-Demony obsЁuguj╠ce poszczegСlne protokoЁy dostЙpne s╠ w osobnych
+Demony obsе┌ugujд┘ce poszczegцЁlne protokoе┌y dostд≥pne sд┘ w osobnych
 pakietach.
 
-%description -l pt_BR
-Zebra И um servidor mЗltiplo para roteamento, provendo suporte aos
+%description -l pt_BR.UTF-8
+Zebra ц╘ um servidor mц╨ltiplo para roteamento, provendo suporte aos
 protocolos baseados em TCP/IP (inclusive IPv6) tais como RIP, OSPF,
-BGP, entre outros. Zebra transforma sua mАquina em um poderoso
+BGP, entre outros. Zebra transforma sua mц║quina em um poderoso
 roteador.
 
-%description -l ru
-GNU Zebra - это свободное программное обеспечение, работающее с
-основанными на TCP/IP протоколами маршрутизации.
+%description -l ru.UTF-8
+GNU Zebra - я█я┌п╬ я│п╡п╬п╠п╬п╢п╫п╬п╣ п©я─п╬пЁя─п╟п╪п╪п╫п╬п╣ п╬п╠п╣я│п©п╣я┤п╣п╫п╦п╣, я─п╟п╠п╬я┌п╟я▌я┴п╣п╣ я│
+п╬я│п╫п╬п╡п╟п╫п╫я▀п╪п╦ п╫п╟ TCP/IP п©я─п╬я┌п╬п╨п╬п╩п╟п╪п╦ п╪п╟я─я┬я─я┐я┌п╦п╥п╟я├п╦п╦.
 
-GNU Zebra поддерживает BGP4, BGP4+, OSPFv2, OSPFv3, RIPv1, RIPv2 и
+GNU Zebra п©п╬п╢п╢п╣я─п╤п╦п╡п╟п╣я┌ BGP4, BGP4+, OSPFv2, OSPFv3, RIPv1, RIPv2 п╦
 RIPng.
 
-%description -l uk
-GNU Zebra - це в╕льне програмне забезпечення, що працю╓ з базованими
-на TCP/IP протоколами маршрутизац╕╖.
+%description -l uk.UTF-8
+GNU Zebra - я├п╣ п╡я√п╩я▄п╫п╣ п©я─п╬пЁя─п╟п╪п╫п╣ п╥п╟п╠п╣п╥п©п╣я┤п╣п╫п╫я▐, я┴п╬ п©я─п╟я├я▌я■ п╥ п╠п╟п╥п╬п╡п╟п╫п╦п╪п╦
+п╫п╟ TCP/IP п©я─п╬я┌п╬п╨п╬п╩п╟п╪п╦ п╪п╟я─я┬я─я┐я┌п╦п╥п╟я├я√я≈.
 
-GNU Zebra п╕дтриму╓ BGP4, BGP4+, OSPFv2, OSPFv3, RIPv1, RIPv2 та
+GNU Zebra п©я√п╢я┌я─п╦п╪я┐я■ BGP4, BGP4+, OSPFv2, OSPFv3, RIPv1, RIPv2 я┌п╟
 RIPng.
 
 %package bgpd
 Summary:	BGP routing daemon
-Summary(pl):	Demon routingu BGP
+Summary(pl.UTF-8):   Demon routingu BGP
 Group:		Networking/Daemons
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
@@ -95,12 +95,12 @@ Obsoletes:	zebra-bgpd
 %description bgpd
 BGP routing daemon. Includes IPv6 support.
 
-%description bgpd -l pl
-Demon obsЁugi protokoЁu BGP. ObsЁuguje tak©e IPv6.
+%description bgpd -l pl.UTF-8
+Demon obsе┌ugi protokoе┌u BGP. Obsе┌uguje takе╪e IPv6.
 
 %package ospf6d
 Summary:	IPv6 OSPF routing daemon
-Summary(pl):	Demon routingu OSPF w sieciach IPv6
+Summary(pl.UTF-8):   Demon routingu OSPF w sieciach IPv6
 Group:		Networking/Daemons
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
@@ -109,8 +109,8 @@ Obsoletes:	zebra-ospf6d
 %description ospf6d
 OSPF6 routing daemon for IPv6 networks.
 
-%description ospf6d -l pl
-Demon obsЁugi protokoЁu OSPF w sieciach IPv6.
+%description ospf6d -l pl.UTF-8
+Demon obsе┌ugi protokoе┌u OSPF w sieciach IPv6.
 
 %prep
 %setup -q -n zebra-%{version}
