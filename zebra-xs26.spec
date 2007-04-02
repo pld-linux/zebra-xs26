@@ -210,7 +210,7 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %attr(640,root,root) %{_sysconfdir}/*.conf
 %dir %attr(750,root,root) /var/run/zebra
 %dir %attr(750,root,root) /var/log/zebra
-%dir %attr(750,root,root) /var/log/archiv/zebra
+%dir %attr(750,root,root) /var/log/archive/zebra
 
 %doc zebra/*sample*
 %{_mandir}/man8/zebra*
