@@ -138,7 +138,7 @@ Demon obsługi protokołu OSPF w sieciach IPv6.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,logrotate.d,pam.d} \
-	$RPM_BUILD_ROOT/var/log/{archiv,}/zebra \
+	$RPM_BUILD_ROOT/var/log/{archive,}/zebra \
 	$RPM_BUILD_ROOT/var/run/zebra
 
 %{__make} install \
