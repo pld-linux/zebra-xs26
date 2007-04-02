@@ -1,6 +1,6 @@
 /var/log/zebra/ospf6d.log {
 	missingok
-	olddir /var/log/archiv/zebra
+	olddir /var/log/archive/zebra
 	postrotate
 		/bin/killall -USR1 ospf6d >/dev/null 2>&1
 	endscript
